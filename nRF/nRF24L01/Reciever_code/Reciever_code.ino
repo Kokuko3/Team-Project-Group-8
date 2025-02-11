@@ -1,32 +1,38 @@
-/*
-* Arduino Wireless Communication Tutorial
-*       Example 1 - Receiver Code
-*                
-* by Dejan Nedelkovski, www.HowToMechatronics.com
-* 
-* Library: TMRh20/RF24, https://github.com/tmrh20/RF24/
-*/
-
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
 
-RF24 radio(7, 8); // CE, CSN
+RF24 radio(7, 8);  // CE, CSN pins
+const byte address[6] = "00001";  // Same as transmitter
 
-const byte address[6] = "00001";
+char buffer[32];
+uint32_t imgSize;
+bool receiving = false;
 
 void setup() {
-  Serial.begin(9600);
-  radio.begin();
-  radio.openReadingPipe(0, address);
-  radio.setPALevel(RF24_PA_MIN);
-  radio.startListening();
+    Serial.begin(115200);
+    radio.begin();
+    radio.openReadingPipe(0, address);
+    radio.setPALevel(RF24_PA_HIGH);
+    radio.startListening();
 }
 
 void loop() {
-  if (radio.available()) {
-    char text[32] = "";
-    radio.read(&text, sizeof(text));
-    Serial.println(text);
-  }
+    if (radio.available()) {
+        if (!receiving) {
+            radio.read(&imgSize, sizeof(imgSize));  // Read image size
+            Serial.write("START\n");  // Notify Python
+            Serial.write((char*)&imgSize, sizeof(imgSize));  // Send size
+            receiving = true;
+        }
+
+        int bytesRead = radio.read(buffer, sizeof(buffer));
+        Serial.write(buffer, bytesRead);  // Send chunk over Serial
+
+        imgSize -= bytesRead;
+        if (imgSize <= 0) {
+            Serial.write("END\n");  // Notify Python
+            receiving = false;
+        }
+    }
 }
