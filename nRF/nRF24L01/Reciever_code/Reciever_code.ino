@@ -21,17 +21,19 @@ void loop() {
     if (radio.available()) {
         if (!receiving) {
             radio.read(&imgSize, sizeof(imgSize));  // Read image size
-            Serial.write("START\n");  // Notify Python
+            Serial.println("START");  // Notify Python
             Serial.write((char*)&imgSize, sizeof(imgSize));  // Send size
             receiving = true;
         }
 
-        int bytesRead = radio.read(buffer, sizeof(buffer));
+        radio.read(buffer, sizeof(buffer));  // Read data, but no return value
+        int bytesRead = sizeof(buffer);  // Assume full buffer size
+
         Serial.write(buffer, bytesRead);  // Send chunk over Serial
 
         imgSize -= bytesRead;
         if (imgSize <= 0) {
-            Serial.write("END\n");  // Notify Python
+            Serial.println("END");  // Notify Python
             receiving = false;
         }
     }

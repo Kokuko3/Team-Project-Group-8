@@ -2,7 +2,7 @@ import serial
 import time
 import os
 
-SERIAL_PORT = "/dev/ttyUSB0"  # Adjust this based on your system
+SERIAL_PORT = "/dev/ttyACM1"  # Adjust this based on your system
 BAUD_RATE = 115200
 SAVE_DIR = "/home/mmcdaniel/Spring 2025/Team Projects II/received_images"
 os.makedirs(SAVE_DIR, exist_ok=True)
