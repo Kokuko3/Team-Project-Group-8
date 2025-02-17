@@ -3,7 +3,7 @@
 #include <RF24.h>
 
 RF24 radio(7, 8);  // CE, CSN pins
-const byte address[6] = "00001";  // Same as transmitter
+const byte address[6] = "00001";  // Same as receiver
 
 char buffer[32];
 uint32_t imgSize;
@@ -21,18 +21,22 @@ void loop() {
     if (radio.available()) {
         if (!receiving) {
             radio.read(&imgSize, sizeof(imgSize));  // Read image size
-            Serial.write("START\n");  // Notify Python
-            Serial.write((char*)&imgSize, sizeof(imgSize));  // Send size
+            Serial.println("START");  // Ensure the "START" message ends with newline
+            Serial.write((char*)&imgSize, sizeof(imgSize));  // Send image size as raw bytes
             receiving = true;
         }
 
-        int bytesRead = radio.read(buffer, sizeof(buffer));
+        radio.read(buffer, sizeof(buffer));
+        int bytesRead = sizeof(buffer);
+
         Serial.write(buffer, bytesRead);  // Send chunk over Serial
 
         imgSize -= bytesRead;
         if (imgSize <= 0) {
-            Serial.write("END\n");  // Notify Python
+            Serial.println("END");  // Ensure the "END" message ends with newline
             receiving = false;
         }
     }
 }
+
+
