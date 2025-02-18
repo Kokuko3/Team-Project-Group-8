@@ -13,3 +13,5 @@
     * `ufw rules` (to verify the rules)
     * `sudo systemctl status apache2` (should be up and running)
 2. Moving base `site.tar.gz` to instance
+    * Site can be found [basesite](./basesite/)
+
