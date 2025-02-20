@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "termios.h": "c",
+        "termios-c_cflag.h": "c",
+        "unistd.h": "c",
+        "transfer.h": "c",
+        "stdio.h": "c"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/nikolaus/teamprojects/protocoltest",
+            "binaryPath": "/home/nikolaus/teamprojects/protocoltest/main",
+            "binaryArgs": []
+        }
+    ],
+    "makefile.buildLog": ""
+}
