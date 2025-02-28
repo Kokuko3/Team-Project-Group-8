@@ -12,8 +12,8 @@ uint8_t wbfi=0; // write buffer index.
 
 #define startp_size 4 // start pattern size
 #define stopp_size 4 // stop pattern size
-uint8_t startp[startp_size]={0x01,0x02,0x03,0x04}; //start pattern
-uint8_t stopp[stopp_size]={0x04,0x03,0x02,0x01}; // stop pattern
+uint8_t startp[startp_size]={0x12,0x09,0x16,0x83}; //start pattern
+uint8_t stopp[stopp_size]={0x04,0x18,0x20,0x02}; // stop pattern
 
 #define psize_max 256
 struct transf { // packet structure
@@ -34,7 +34,7 @@ void setup() {
 
   // Configure and Open Serial
   Serial.setTimeout(1000); // [=] ms
-  Serial.begin(115200);
+  Serial.begin(9600);
   while(!Serial) {};
 
   /*
@@ -47,7 +47,12 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  Serial.println(tx_packet.size);
+  packetWrite(tx_packet);
+  tx_packet.size+=1;
+  tx_packet.size=tx_packet.size%256;
+  delay(2000);
+  Serial.println("");
 }
 
 int serialReadBuffer() {
@@ -119,3 +124,28 @@ int serialParser(struct transf* packet) {
   return -1;
 }
 
+int packetWrite(struct transf packet) {
+  int n=sizeof(startp);
+  int nt=0;
+  memcpy(wbf,startp,n);
+  nt+=n;
+  n = sizeof(packet.id);
+  memcpy((wbf+nt),&packet.id,n);
+  nt+=n;
+  n=sizeof(packet.size);
+  memcpy((wbf+nt),&packet.size,n);
+  nt+=n;
+  n=packet.size;
+  memcpy((wbf+nt),&packet.payload,n);
+  nt+=n;
+  n=sizeof(stopp);
+  memcpy((wbf+nt),stopp,n);
+  nt+=n;
+  
+  //n=0;
+  //do {
+  //  n+=Serial.write(wbf+n,nt-n);
+  //} while(n<nt);
+  //return n;
+  return Serial.write(wbf,nt);
+}
