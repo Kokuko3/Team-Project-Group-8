@@ -10,33 +10,31 @@ uint32_t imgSize;
 bool receiving = false;
 
 void setup() {
-    Serial.begin(115200);
-    radio.begin();
-    radio.openReadingPipe(0, address);
-    radio.setPALevel(RF24_PA_HIGH);
-    radio.startListening();
+  Serial.begin(115200);
+  radio.begin();
+  radio.openReadingPipe(0, address);
+  radio.setPALevel(RF24_PA_HIGH);
+  radio.startListening();
 }
 
 void loop() {
-    if (radio.available()) {
-        if (!receiving) {
-            radio.read(&imgSize, sizeof(imgSize));  // Read image size
-            Serial.println("START");  // Notify Python
-            Serial.write((char*)&imgSize, sizeof(imgSize));  // Send size
-            receiving = true;
-        }
-
-        radio.read(buffer, sizeof(buffer));  // Read data, but no return value
-        int bytesRead = sizeof(buffer);  // Assume full buffer size
-
-        Serial.write(buffer, bytesRead);  // Send chunk over Serial
-
-        imgSize -= bytesRead;
-        if (imgSize <= 0) {
-            Serial.println("END");  // Notify Python
-            receiving = false;
-        }
+  if (radio.available()) {
+    if (!receiving) {
+      radio.read(&imgSize, sizeof(imgSize));
+      Serial.write("START");
+      Serial.write((char*)&imgSize, sizeof(imgSize);
+      receiving = true;
     }
+
+    radio.read(buffer, sizeof(buffer)); 
+    int bytesRead = sizeof(buffer); 
+
+    Serial.write(buffer, bytesRead);  // Send chunk over Serial
+
+    imgSize -= bytesRead;
+    if (imgSize <= 0) {
+      Serial.write("END");  // Notify Python
+      receiving = false;
+    }
+  }
 }
-
-

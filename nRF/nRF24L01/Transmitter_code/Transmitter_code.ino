@@ -12,7 +12,7 @@ void setup() {
     radio.begin();
     radio.openWritingPipe(address);
     radio.setPALevel(RF24_PA_HIGH);
-    radio.stopListening();
+    radio.startListening();
 }
 
 void sendChunk(char *data, int len) {
@@ -20,15 +20,23 @@ void sendChunk(char *data, int len) {
 }
 
 void loop() {
-    if (Serial.available() >= 4) {
+    if (Serial.available() > 0) {
+        radio.stopListening();
         uint32_t imgSize;
-        Serial.readBytes((char*)&imgSize, 4);  // Read image size
-
+        Serial.readBytes((char*)&imgSize, 4);
         Serial.println("Receiving image...");
         for (uint32_t i = 0; i < imgSize; i += 32) {
             int bytesRead = Serial.readBytes(buffer, 32);
             sendChunk(buffer, bytesRead);
         }
         Serial.println("Image transmitted!");
+        radio.startListening();
+    } 
+    else {
+        if (radio.available()) {
+            radio.read(buffer, sizeof(buffer));
+            Serial.write(buffer);
+        }
     }
 }
+

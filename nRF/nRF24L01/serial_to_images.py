@@ -1,4 +1,4 @@
-import serial
+import test_serial
 import time
 import os
 
@@ -8,7 +8,7 @@ SAVE_DIR = "Image_Dir"
 os.makedirs(SAVE_DIR, exist_ok=True)
 
 def receive_image():
-    ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
+    ser = test_serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
     time.sleep(2)
     img_count = 1
 

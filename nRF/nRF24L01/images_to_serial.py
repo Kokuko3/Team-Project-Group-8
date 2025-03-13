@@ -1,4 +1,4 @@
-import serial
+import test_serial
 import time
 import os
 
@@ -13,8 +13,8 @@ def send_image(ser, image_path):
 
     print(f"Sending {os.path.basename(image_path)} ({len(image_data)} bytes)...")
     
-    ser.write(len(image_data))  # Send file size first
-    print(len(image_data))
+    ser.write(len(image_data).to_bytes(4, 'big'))  # Send file size first
+    print(len(image_data).to_bytes(4, 'big'))
     time.sleep(1)  
 
     chunk_size = 32
@@ -27,7 +27,7 @@ def send_image(ser, image_path):
     print(f"{os.path.basename(image_path)} sent!")
 
 def main():
-    ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
+    ser = test_serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
     time.sleep(2)  
 
     image_files = [f for f in os.listdir(IMAGE_DIR) if f.endswith(".txt")]
