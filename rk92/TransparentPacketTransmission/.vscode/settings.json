@@ -1,0 +1,32 @@
+{
+    "files.associations": {
+        "termios.h": "c",
+        "termios-c_cflag.h": "c",
+        "unistd.h": "c",
+        "transfer.h": "c",
+        "stdio.h": "c",
+        "ioctl.h": "c",
+        "time.h": "c",
+        "local.h": "c",
+        "compare": "c",
+        "cstdint": "c"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/nikolaus/teamprojects/protocoltest",
+            "binaryPath": "/home/nikolaus/teamprojects/protocoltest/main",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/revised_parser",
+            "binaryPath": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/revised_parser/main",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_reassembly",
+            "binaryPath": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_reassembly/main",
+            "binaryArgs": []
+        }
+    ],
+    "makefile.buildLog": ""
+}
