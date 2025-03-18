@@ -2,9 +2,9 @@ import hashlib
 import subprocess
 import os
 
-AES_KEY = "1234567890abcdef"  # 16-byte AES Key (hex format)
-AES_IV = "abcdef1234567890"   # 16-byte AES IV (hex format)
-HASH_FILE = "encrypted/hashes.txt"  # File to store hashes
+AES_KEY = "1234567890abcdef"  
+AES_IV = "abcdef1234567890" 
+HASH_FILE = "encrypted/hashes.txt"  
 
 def compute_md5(file_path):
     """Computes MD5 hash of a file."""
@@ -44,6 +44,6 @@ def process_images(image_folder, encrypted_folder, hash_file):
             f.write(f"{enc_file} {hash_val}\n")
 
 if __name__ == "__main__":
-    os.makedirs("./encrypted", exist_ok=True)  # Ensure folder exists
+    os.makedirs("./encrypted", exist_ok=True)  
     process_images("./images", "./encrypted", HASH_FILE)
 
