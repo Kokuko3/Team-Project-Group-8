@@ -1,9 +1,25 @@
 import hashlib
 import subprocess
 import os
+import shutil
 
 AES_KEY = "1234567890abcdef"
-AES_IV = "abcdef1234567890"   
+AES_IV = "abcdef1234567890"
+ENCRYPTED_FOLDER = "encrypted"
+RECEIVED_FOLDER = "received"
+DECRYPTED_FOLDER = "decrypted"
+HASH_FILE = f"{ENCRYPTED_FOLDER}/hashes.txt"
+
+def setup_folders():
+    """Ensure required directories exist and move files if needed."""
+    os.makedirs(RECEIVED_FOLDER, exist_ok=True)
+    os.makedirs(DECRYPTED_FOLDER, exist_ok=True)
+
+    # Move encrypted files if not already in received/
+    if not os.listdir(RECEIVED_FOLDER):  # Only move if received/ is empty
+        for file in os.listdir(ENCRYPTED_FOLDER):
+            if file.endswith(".enc") or file == "hashes.txt":
+                shutil.copy(os.path.join(ENCRYPTED_FOLDER, file), RECEIVED_FOLDER)
 
 def compute_md5(file_path):
     """Computes MD5 hash of a file."""
@@ -22,12 +38,28 @@ def decrypt_image(encrypted_path, decrypted_path):
         return False
     return True
 
-def verify_and_decrypt(received_folder, decrypted_folder, expected_hashes):
+def load_expected_hashes():
+    """Loads expected hashes from the saved file."""
+    hashes = {}
+    if os.path.exists(HASH_FILE):
+        with open(HASH_FILE, "r") as f:
+            for line in f:
+                parts = line.strip().split()
+                if len(parts) == 2:
+                    filename, hash_val = parts
+                    hashes[filename] = hash_val
+    else:
+        print(f"Error: Hash file '{HASH_FILE}' not found!")
+    return hashes
+
+def verify_and_decrypt():
     """Verifies hash of received encrypted file, then decrypts."""
-    for filename in os.listdir(received_folder):
+    expected_hashes = load_expected_hashes()
+
+    for filename in os.listdir(RECEIVED_FOLDER):
         if filename.endswith(".enc"):
-            encrypted_path = os.path.join(received_folder, filename)
-            decrypted_path = os.path.join(decrypted_folder, filename.replace(".enc", ""))
+            encrypted_path = os.path.join(RECEIVED_FOLDER, filename)
+            decrypted_path = os.path.join(DECRYPTED_FOLDER, filename.replace(".enc", ""))
 
             # Compute received encrypted hash
             computed_enc_hash = compute_md5(encrypted_path)
@@ -44,9 +76,5 @@ def verify_and_decrypt(received_folder, decrypted_folder, expected_hashes):
                 print(f"Decryption successful: {decrypted_path}")
 
 if __name__ == "__main__":
-    expected_hashes = {
-        "image1.png.enc": "abc123",  # Populate with actual expected hashes
-        "image2.png.enc": "def456",
-    }
-    verify_and_decrypt("./received", "./decrypted", expected_hashes)
-
+    setup_folders()
+    verify_and_decrypt()

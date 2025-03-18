@@ -4,6 +4,7 @@ import os
 
 AES_KEY = "1234567890abcdef"  # 16-byte AES Key (hex format)
 AES_IV = "abcdef1234567890"   # 16-byte AES IV (hex format)
+HASH_FILE = "encrypted/hashes.txt"  # File to store hashes
 
 def compute_md5(file_path):
     """Computes MD5 hash of a file."""
@@ -22,8 +23,10 @@ def encrypt_image(image_path, encrypted_path):
         return None
     return encrypted_path
 
-def process_images(image_folder, encrypted_folder):
-    """Encrypts images, computes hash, and prints hash for verification."""
+def process_images(image_folder, encrypted_folder, hash_file):
+    """Encrypts images, computes hash, and saves hash for verification."""
+    hashes = {}
+    
     for filename in os.listdir(image_folder):
         if filename.endswith(".png"):
             image_path = os.path.join(image_folder, filename)
@@ -32,8 +35,15 @@ def process_images(image_folder, encrypted_folder):
             encrypted_file = encrypt_image(image_path, encrypted_path)
             if encrypted_file:
                 encrypted_hash = compute_md5(encrypted_file)
+                hashes[filename + ".enc"] = encrypted_hash
                 print(f"{filename}.enc Hash: {encrypted_hash}")
 
+    # Save hashes to file
+    with open(hash_file, "w") as f:
+        for enc_file, hash_val in hashes.items():
+            f.write(f"{enc_file} {hash_val}\n")
+
 if __name__ == "__main__":
-    process_images("./images", "./encrypted")
+    os.makedirs("./encrypted", exist_ok=True)  # Ensure folder exists
+    process_images("./images", "./encrypted", HASH_FILE)
 
