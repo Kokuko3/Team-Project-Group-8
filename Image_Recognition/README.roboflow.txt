@@ -1,8 +1,8 @@
 
-deathstar 2 - v4 2025-03-08 12:38pm
+deathstar 2 - v6 2025-03-18 1:00am
 ==============================
 
-This dataset was exported via roboflow.com on March 8, 2025 at 5:38 PM GMT
+This dataset was exported via roboflow.com on March 18, 2025 at 5:00 AM GMT
 
 Roboflow is an end-to-end computer vision platform that helps you
 * collaborate with your team on computer vision projects
@@ -17,7 +17,7 @@ visit https://github.com/roboflow/notebooks
 
 To find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com
 
-The dataset includes 136 images.
+The dataset includes 144 images.
 Death-star-0cxf are annotated in YOLOv11 format.
 
 The following pre-processing was applied to each image:
@@ -26,6 +26,6 @@ The following pre-processing was applied to each image:
 
 The following augmentation was applied to create 3 versions of each source image:
 * 50% probability of horizontal flip
-* Salt and pepper noise was applied to 1.29 percent of pixels
+* Equal probability of one of the following 90-degree rotations: none, clockwise, counter-clockwise, upside-down
 
 

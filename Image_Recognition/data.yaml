@@ -8,6 +8,6 @@ names: ['Death-star']
 roboflow:
   workspace: intromlfinalproject
   project: deathstar-2
-  version: 4
+  version: 6
   license: CC BY 4.0
-  url: https://universe.roboflow.com/intromlfinalproject/deathstar-2/dataset/4
+  url: https://universe.roboflow.com/intromlfinalproject/deathstar-2/dataset/6
