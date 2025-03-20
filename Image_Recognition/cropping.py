@@ -50,16 +50,18 @@ for image in images:
         (x, y), radius = cv2.minEnclosingCircle(largest_contour)
         x, y, radius = int(x), int(y), int(radius)
 
+
         # crop image to circle
         cropped_image = image[y-radius:y+radius, x-radius:x+radius]
-
-        # save image
-        cv2.imshow("Cropped Image", cropped_image)
-        cv2.imwrite("Output2/image" + str(counter) + ".png", cropped_image)
-        print("Weakness detected")
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        counter += 1
+        
+        if cropped_image.size > 0:
+            # save image
+            cv2.imshow("Cropped Image", cropped_image)
+            cv2.imwrite("Output2/image" + str(counter) + ".png", cropped_image)
+            print("Weakness detected")
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+            counter += 1
     else:
         print("No weakness detected.")
 
