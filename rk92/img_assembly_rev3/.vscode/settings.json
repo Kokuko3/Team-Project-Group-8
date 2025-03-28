@@ -1,0 +1,64 @@
+{
+    "files.associations": {
+        "termios.h": "c",
+        "termios-c_cflag.h": "c",
+        "unistd.h": "c",
+        "transfer.h": "c",
+        "stdio.h": "c",
+        "ioctl.h": "c",
+        "time.h": "c",
+        "local.h": "c",
+        "compare": "c",
+        "cstdint": "c",
+        "string.h": "c",
+        "lists.h": "c",
+        "array": "c",
+        "hash_map": "c",
+        "hash_set": "c",
+        "bitset": "c",
+        "string_view": "c",
+        "format": "c",
+        "initializer_list": "c",
+        "ranges": "c",
+        "span": "c",
+        "assert.h": "c"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/nikolaus/teamprojects/protocoltest",
+            "binaryPath": "/home/nikolaus/teamprojects/protocoltest/main",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/revised_parser",
+            "binaryPath": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/revised_parser/main",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_reassembly",
+            "binaryPath": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_reassembly/main",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_assembly",
+            "binaryPath": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_assembly/main",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_assembly",
+            "binaryPath": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_assembly/tx",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_assembly",
+            "binaryPath": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_assembly/rx",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_assembly_rev3",
+            "binaryPath": "/home/nikolaus/TeamProjectsGroup8Rep/Team-Project-Group-8/rk92/img_assembly_rev3/tx",
+            "binaryArgs": []
+        }
+    ],
+    "makefile.buildLog": ""
+}
