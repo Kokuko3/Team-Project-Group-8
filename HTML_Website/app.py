@@ -3,7 +3,7 @@ import os
 
 app = Flask(__name__, template_folder=".")
 
-# Images are in the same folder as the app
+# all of the images must be in the same folder as this flask app
 IMAGE_FOLDER = os.path.abspath(os.path.dirname(__file__))
 
 @app.route('/')
