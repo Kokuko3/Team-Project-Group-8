@@ -8,6 +8,7 @@ const byte address[6] = "00001";
 char buffer[32];
 
 void setup() {
+    //pinMode(13, OUTPUT);
     Serial.begin(115200);
     radio.begin();
     radio.setPALevel(RF24_PA_HIGH);
@@ -39,7 +40,10 @@ void loop() {
         delay(5);
         radio.startListening();
         if (!success) {
-            Serial.println("[Error] Send failed");
+          //digitalWrite(13,LOW);
+          //Serial.println("[Arduino Error] Send failed");
+        } else {
+          //digitalWrite(13,HIGH);
         }
     }
     
