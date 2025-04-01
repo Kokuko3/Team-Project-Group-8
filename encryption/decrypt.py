@@ -16,7 +16,7 @@ def decrypt_image(input_path, output_path):
 
 def decrypt_all_images(input_folder, output_folder):
     """Decrypts all encrypted images in the input folder and saves them to the output folder."""
-    os.makedirs(output_folder, exist_ok=True)  # Ensure decrypted folder exists
+    os.makedirs(output_folder, exist_ok=True) 
 
     for filename in os.listdir(input_folder):
         if filename.endswith(".enc"):

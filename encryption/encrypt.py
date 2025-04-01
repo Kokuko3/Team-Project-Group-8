@@ -16,7 +16,7 @@ def encrypt_image(input_path, output_path):
 
 def encrypt_all_images(input_folder, output_folder):
     """Encrypts all PNG images in the input folder and saves them to the output folder."""
-    os.makedirs(output_folder, exist_ok=True)  # Ensure encrypted folder exists
+    os.makedirs(output_folder, exist_ok=True)  
 
     for filename in os.listdir(input_folder):
         if filename.endswith(".png"):

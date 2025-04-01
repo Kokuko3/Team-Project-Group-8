@@ -16,7 +16,7 @@ def setup_folders():
     os.makedirs(DECRYPTED_FOLDER, exist_ok=True)
 
     # Move encrypted files if not already in received/
-    if not os.listdir(RECEIVED_FOLDER):  # Only move if received/ is empty
+    if not os.listdir(RECEIVED_FOLDER):  
         for file in os.listdir(ENCRYPTED_FOLDER):
             if file.endswith(".enc") or file == "hashes.txt":
                 shutil.copy(os.path.join(ENCRYPTED_FOLDER, file), RECEIVED_FOLDER)
