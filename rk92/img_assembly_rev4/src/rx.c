@@ -56,15 +56,20 @@ int grow_img() {
 
 }
 
-int main() {    
+int main(int argc, char *argv[]) {    
     printf("Receiver Start\nPID: %d\n\n",getpid());
+
+    if(argc<2) {
+        printf("Missing Serial Arguments\n");
+        return -1;
+    }
 
     printf("Allocating Space for First File\n");
     grow_img();
     assert(img);
 
 
-    serial_connection_t serial = serial_create_structure(serial_path);
+    serial_connection_t serial = serial_create_structure(argv[1]);
     printf("Serial Link Status: %d\n",serial_link(&serial));
 
     transfer_t recv_transfer = {0};
