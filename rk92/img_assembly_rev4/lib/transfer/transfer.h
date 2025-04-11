@@ -1,8 +1,7 @@
 #ifndef _TRANSFER_H
 #define _TRANSFER_H
-#else
-#error "This file has already been included"
-#endif
+//#else
+//#error "This file has already been included"
 
 #include<stdint.h>
 #include<termios.h>
@@ -39,3 +38,6 @@ int serial_read(serial_connection_t*,uint8_t*,uint16_t);
 int serial_struct_tx(serial_connection_t*,transfer_t);
 int serial_receive(serial_connection_t*);
 int parse_buffer(transfer_t*);
+
+
+#endif

@@ -5,8 +5,8 @@ libdirs := lib $(wildcard lib/*)
 
 # inserted -I$(libdirs), this may need to be removed if it breaks things...
 CC := gcc
-CFLAGS := -Wall -std=gnu23 -pedantic -g
-LFLAGS := -std=gnu23 -O3 -ggdb
+CFLAGS := -Wall -std=gnu17 -pedantic -g
+LFLAGS := -std=gnu17 -O3 -ggdb
 LDLIBS := -lssl -lcrypto
 
 .PHONY: clean all
