@@ -1,8 +1,7 @@
 #ifndef _LISTS_H
 #define _LISTS_H
-#else
+//#else
 //#error "This file has already been included"
-#endif
 
 #include<stdint.h>
 #include<stdlib.h>
@@ -56,14 +55,16 @@ struct node *tail(struct node **list);
 struct node *next(struct node *record);
 struct node *previous(struct node *record);
 size_t length(struct node **list);
-struct node* retrieve(struct node **list, size_t i);
+struct node *retrieve(struct node **list, size_t i);
 struct node *alloc_record(void *src, size_t size);
 void free_record(struct node *record);
 struct node *prepend(struct node **list, void *src, size_t size);
 struct node *append(struct node **list, void *src, size_t size);
-struct node* insert(struct node **list, size_t i, void *src, size_t size);
+struct node *insert(struct node **list, size_t i, void *src, size_t size);
 void delete(struct node **list, size_t i);
 
 //index
 //address
 //sort that takes a call back? (also have something to check that the elements are have adjacent packet numbers).
+
+#endif
