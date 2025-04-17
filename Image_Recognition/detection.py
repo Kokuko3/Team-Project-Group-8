@@ -1,11 +1,17 @@
-from ultralytics import YOLO
+import argparse
 import shutil
+from ultralytics import YOLO
+
+# Argument parser to specify output directory
+parser = argparse.ArgumentParser(description='Process and save images to a specified directory.')
+parser.add_argument('output_dir', type=str, help='Directory to save the result images')
+args = parser.parse_args()
 
 # Load YOLO model
-model = YOLO("runs/classify/train3/weights/best.pt")
+model = YOLO("Image_Recognition/runs/classify/train3/weights/best.pt")
 
 # Save results of prediction from Input folder to results array
-results = model.predict(source="Input")
+results = model.predict(source="main_driver/jpg_folder")
 
 # Counter for file naming
 counter = 0
@@ -40,16 +46,15 @@ if len(detections) > 10:
 
     print("Trimmed results")
 
-# save images
 for detection in detections:
     print(detection.probs.top1conf)
-    shutil.copy(detection.path, "Output/image" + str(counter) + ".png")
+    shutil.copy(detection.path, f"{args.output_dir}/image{counter}.png")
     counter += 1
 
-# In case of failed execution, fill in remaining slots with filler images
 while counter < 10:
-    shutil.copy("TotallyRealDeathstar.png", "Output/TotallyRealDeathstar" + str(counter) + ".png")
+    shutil.copy("Image_Recognition/TotallyRealDeathstar.png", f"{args.output_dir}/TotallyRealDeathstar{counter}.png")
     counter += 1
     print("Death star image artificially inserted")
+
 
 

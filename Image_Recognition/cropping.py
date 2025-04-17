@@ -2,6 +2,12 @@ import cv2
 import numpy as np
 import os
 import shutil
+import argparse
+
+# Argument parser to specify input directory
+parser = argparse.ArgumentParser(description='Process images from a specified directory and crop them.')
+parser.add_argument('input_dir', type=str, help='Directory containing the images to be cropped')
+args = parser.parse_args()
 
 # load_images
 # Loads all images inside of specified folder into array
@@ -10,18 +16,18 @@ def load_images(folder):
     
     for file in os.listdir(folder):
         if file.lower().endswith(".png") or file.lower().endswith(".jpg"):
-            path = folder + "/" + file
+            path = os.path.join(folder, file)
             images.append(cv2.imread(path))
     
     return images
 
-# Load all images from folder into array
-images = load_images("Output")
+# Load all images from the specified directory into an array
+images = load_images(args.input_dir)
 
 # Counter for file naming purposes
 counter = 0
 
-# For each image i n array perform cropping procedure
+# For each image in array perform cropping procedure
 for image in images:
 
     # Convert to HSV colorspace
@@ -38,35 +44,32 @@ for image in images:
     mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
     mask = mask1 + mask2
 
-    # find contours in masked image
+    # Find contours in the masked image
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    # if contours present
+    # If contours are present
     if contours:
-        # isolate largest contour
+        # Isolate largest contour
         largest_contour = max(contours, key=cv2.contourArea)
         
-        # determine if contour matches circle
+        # Determine if contour matches a circle
         (x, y), radius = cv2.minEnclosingCircle(largest_contour)
         x, y, radius = int(x), int(y), int(radius)
 
-
-        # crop image to circle
+        # Crop the image to the circle
         cropped_image = image[y-radius:y+radius, x-radius:x+radius]
         
         if cropped_image.size > 0:
-            # save image
-            cv2.imshow("Cropped Image", cropped_image)
-            cv2.imwrite("Output2/image" + str(counter) + ".png", cropped_image)
-            print("Weakness detected")
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
+            # Save the cropped image to the same directory
+            output_path = os.path.join(args.input_dir, f"cropped_image{counter}.png")
+            cv2.imwrite(output_path, cropped_image)
+            print(f"Weakness detected and saved to {output_path}")
             counter += 1
     else:
         print("No weakness detected.")
 
 # If not 10 weaknesses, insert additional to retain functionality
 while counter < 10:
-    shutil.copy("TotallyRealWeakness.png", "Output2/TotallyRealWeakness" + str(counter) + ".png")
+    shutil.copy("Image_Recognition/TotallyRealWeakness.png", os.path.join(args.input_dir, f"TotallyRealWeakness{counter}.png"))
     counter += 1    
     print("Weakness Inserted")
