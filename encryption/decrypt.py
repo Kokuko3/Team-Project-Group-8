@@ -26,6 +26,7 @@ def decrypt_image(input_path):
         os.remove(input_path)  # Remove the original .enc file
         print(f"Decrypted and replaced: {output_path}")
 
+
 def decrypt_all_images(folder):
     """Decrypts all .enc files in the given folder and overwrites them in-place."""
     for filename in os.listdir(folder):

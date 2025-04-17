@@ -5,8 +5,8 @@ libdirs := lib $(wildcard lib/*)
 
 # inserted -I$(libdirs), this may need to be removed if it breaks things...
 CC := gcc
-CFLAGS := -Wall -std=gnu23 -pedantic -g
-LFLAGS := -std=gnu23 -O3 -ggdb
+CFLAGS := -Wall -std=gnu11 -pedantic -g
+LFLAGS := -std=gnu17 -O3 -ggdb
 LDLIBS := -lssl -lcrypto
 
 .PHONY: clean all
@@ -14,7 +14,7 @@ LDLIBS := -lssl -lcrypto
 all: clean main rx tx
 
 clean:
-	rm -f $(builddir)/*.o main rx tx
+	rm -f $(builddir)/*.o $(buildlibdir)/* main rx tx
 
 #build: main.o rx.o tx.o lists.o local.o transfer.o
 #	cc $(wildcard $(builddir)/*) -o main

@@ -1,8 +1,7 @@
 #ifndef _LOCAL_H
 #define _LOCAL_H
-#else
-#error "This file has already been included"
-#endif
+//#else
+//#error "This file has already been included"
 
 #include<errno.h>
 #include<stdint.h>
@@ -121,3 +120,6 @@ struct ack_format {
 };
 enum statuses {new_img = -1, restart_img = 0};
 */
+
+
+#endif
